@@ -45,4 +45,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Serving: FastAPI `POST /predict` (nested list or base64), `GET /health`,
   `GET /version`, structured error bodies.
 - UI: Streamlit viewer with input / reference / prediction / error panels and per-sample
-  metrics for a chosen held-out sample.
+  metrics for a chosen held-out sample; optional Plotly 3D surface view (height =
+  vorticity) toggled from the sidebar, 2D panels remain the default.

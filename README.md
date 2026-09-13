@@ -15,6 +15,9 @@ It runs on a laptop (Apple Silicon `mps`, or CPU) with no external services.
 
 ![Streamlit viewer: input, reference, CNN prediction and error map for a held-out sample](docs/assets/ui.png)
 
+The same four fields as optional interactive 3D surfaces (height = vorticity):
+[docs/assets/ui_3d.png](docs/assets/ui_3d.png).
+
 ## Benchmark
 
 Persistence (output = input) versus a 4-layer, 32-channel residual CNN on the 2 000
@@ -78,6 +81,8 @@ curl -s -X POST http://127.0.0.1:8000/predict \
 `POST /predict` takes `field` (32×32 nested list) or `field_b64` (little-endian float32
 bytes, row-major) and returns `prediction`, `shape`, `model_version`, `device` and
 `latency_ms`. Malformed input gets a structured `{"error": {...}}` body with status 422.
+The viewer shows the four 2D panels by default; a sidebar toggle adds interactive
+Plotly 3D surfaces (height = vorticity) for the same four fields.
 `make smoke` runs the whole pipeline on `configs/smoke.yaml` in about 20 seconds.
 
 ## Architecture

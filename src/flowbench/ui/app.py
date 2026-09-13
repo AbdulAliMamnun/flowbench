@@ -12,27 +12,19 @@ import argparse
 import json
 import sys
 from pathlib import Path
-from typing import TYPE_CHECKING, Any
+from typing import Any
 
-import matplotlib
-import numpy as np
 import streamlit as st
 import torch
 
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
-
 from flowbench.config import FlowBenchConfig, load_config
 from flowbench.data import dataset as ds
-from flowbench.evaluation.metrics import enstrophy_error, mae, relative_l2
 from flowbench.evaluation.slices import HighVorticitySlice, high_vorticity_slice
 from flowbench.models.registry import build_model
 from flowbench.serving.predictor import FieldPredictor
 from flowbench.training.checkpoint import LoadedCheckpoint, load_checkpoint
 from flowbench.training.seed import resolve_device
-
-if TYPE_CHECKING:
-    from matplotlib.figure import Figure
+from flowbench.ui.panels import four_panels, per_sample_metrics, surface_figures
 
 
 def parse_args(argv: list[str]) -> argparse.Namespace:
@@ -77,41 +69,6 @@ def load_everything(config_path: str) -> dict[str, Any]:
     }
 
 
-def per_sample_metrics(pred: np.ndarray, ref: np.ndarray, eps: float) -> dict[str, float]:
-    """Relative L2, MAE and enstrophy error for one field pair."""
-    p = torch.from_numpy(pred)[None, None]
-    r = torch.from_numpy(ref)[None, None]
-    rel, _ = relative_l2(p, r, eps)
-    _, ens_rel, _ = enstrophy_error(p, r, eps)
-    return {
-        "relative_l2": float(rel[0]),
-        "mae": float(mae(p, r)[0]),
-        "enstrophy_rel_err": float(ens_rel[0]),
-    }
-
-
-def four_panels(x: np.ndarray, y: np.ndarray, pred: np.ndarray, title: str) -> Figure:
-    """Input, reference, prediction and error on a shared colour scale."""
-    vmax = float(np.abs(y).max()) or 1.0
-    err = pred - y
-    emax = float(np.abs(err).max()) or 1.0
-    fig, axes = plt.subplots(1, 4, figsize=(14, 3.6))
-    panels = [
-        ("input", x, "RdBu_r", vmax),
-        ("numerical reference", y, "RdBu_r", vmax),
-        (f"{title} prediction", pred, "RdBu_r", vmax),
-        ("error (prediction − reference)", err, "PuOr_r", emax),
-    ]
-    for ax, (name, field, cmap, limit) in zip(axes, panels, strict=True):
-        im = ax.imshow(field, cmap=cmap, vmin=-limit, vmax=limit, origin="lower")
-        ax.set_title(name)
-        ax.set_xticks([])
-        ax.set_yticks([])
-        fig.colorbar(im, ax=ax, fraction=0.046)
-    fig.tight_layout()
-    return fig
-
-
 def main() -> None:
     """Render the page."""
     args = parse_args(sys.argv[1:])
@@ -146,6 +103,12 @@ def main() -> None:
             ),
         )
         model_choice = st.radio("Model", options=[cfg.model.name, "persistence"], index=0)
+        st.header("View")
+        show_3d = st.toggle(
+            "3D surface (height = vorticity)",
+            value=False,
+            help="Adds interactive Plotly surfaces below the 2D panels.",
+        )
         st.caption(
             f"Checkpoint `{ckpt.model_version}` on `{state['device']}` · "
             f"{ckpt.manifest.get('n_parameters', 0):,} parameters · "
@@ -160,6 +123,16 @@ def main() -> None:
     pred = predictor.predict(x)
 
     st.pyplot(four_panels(x, y, pred, model_choice), clear_figure=True)
+
+    if show_3d:
+        st.subheader("3D surface view")
+        columns = st.columns(4)
+        for col, fig in zip(columns, surface_figures(x, y, pred, model_choice), strict=True):
+            col.plotly_chart(fig, use_container_width=True)
+        st.caption(
+            "Input, reference and prediction share one height range; the error surface "
+            "uses its own symmetric range. Drag to rotate, scroll to zoom."
+        )
 
     eps = cfg.evaluation.relative_l2_epsilon
     chosen = per_sample_metrics(pred, y, eps)

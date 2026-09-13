@@ -27,6 +27,7 @@ dependencies = [
   "pydantic-settings>=2.15.0,<3",
   "pyyaml>=6.0.3,<7",
   "matplotlib>=3.11.2,<4",
+  "plotly>=7.0.0,<8",
 ]
 
 [project.urls]
@@ -120,7 +121,7 @@ plugins = ["pydantic.mypy"]
 
 [[tool.mypy.overrides]]
 # neuraloperator ships no type information; it is used for the dataset loader only.
-module = ["neuralop.*", "matplotlib.*", "streamlit.*"]
+module = ["neuralop.*", "matplotlib.*", "streamlit.*", "plotly.*"]
 ignore_missing_imports = true
 
 [[tool.mypy.overrides]]

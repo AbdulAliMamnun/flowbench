@@ -21,7 +21,7 @@ is a subcommand that takes `--config`; steps communicate only through files unde
 | `flowbench.training.*`    | Seeding/device/determinism, trainer, checkpoint directory format          | torch, data, models     |
 | `flowbench.evaluation.*`  | Pure metrics, latency, high-vorticity slice, report + generated docs      | torch, numpy, matplotlib|
 | `flowbench.serving.*`     | `FieldPredictor` (pure), FastAPI app, schemas, structured errors          | fastapi                 |
-| `flowbench.ui.*`          | Streamlit script (`app.py`) and its subprocess launcher (`launch.py`)     | streamlit               |
+| `flowbench.ui.*`          | Streamlit script (`app.py`), figure builders (`panels.py`), launcher      | streamlit, plotly, mpl  |
 
 Rules enforced by structure:
 
@@ -31,8 +31,11 @@ Rules enforced by structure:
 - `serving/predictor.py` imports neither FastAPI nor Streamlit. Evaluation times this
   exact object so the reported latency is the served path.
 - No `print` in library code; the loader's own progress prints are captured.
-- `ui/launch.py` is the one addition to the prescribed layout: `ui/app.py` is executed
-  by `streamlit run` and must not be imported by the CLI.
+- `ui/launch.py` and `ui/panels.py` are the two additions to the prescribed layout:
+  `ui/app.py` is executed by `streamlit run` and must not be imported by the CLI, so the
+  launcher lives apart from it, and the figure builders (2D matplotlib panels, Plotly 3D
+  surfaces, per-sample metrics) live in `panels.py` so they are unit-testable without
+  running the page.
 
 ## Data flow
 
