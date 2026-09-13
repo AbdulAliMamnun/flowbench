@@ -43,6 +43,13 @@ class RunConfig(_StrictModel):
         default=True,
         description="Request deterministic torch algorithms where the backend supports them.",
     )
+    update_docs: bool = Field(
+        default=True,
+        description=(
+            "Refresh the generated blocks in docs/ and README.md (inspect and evaluate). "
+            "Smoke runs set this to false so only the full run publishes numbers."
+        ),
+    )
 
     @property
     def run_dir(self) -> Path:

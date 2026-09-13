@@ -64,7 +64,7 @@ file comes from separate simulations.
 
 <!-- BEGIN GENERATED: flowbench inspect -->
 
-_Generated 2026-09-13T05:26:50+00:00 by `flowbench inspect` (flowbench 0.1.0, neuraloperator 2.0.0, torch 2.14.0)._
+_Generated 2026-09-13T05:34:34+00:00 by `flowbench inspect` (flowbench 0.1.0, neuraloperator 2.0.0, torch 2.14.0)._
 
 ### Files
 

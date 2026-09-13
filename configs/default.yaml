@@ -8,6 +8,7 @@ run:
   artifacts_dir: artifacts
   log_level: INFO
   deterministic: true
+  update_docs: true       # only the full run refreshes docs/*.md and README.md
 
 data:
   root_dir: data

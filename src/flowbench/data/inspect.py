@@ -341,13 +341,25 @@ def render_manifest_markdown(manifest: dict[str, Any]) -> str:
     return "\n".join(lines) + "\n"
 
 
-def update_generated_section(doc_path: Path, generated: str) -> None:
-    """Replace the generated block of a Markdown file, or append one if absent."""
+def update_generated_section(
+    doc_path: Path,
+    generated: str,
+    begin: str = GENERATED_BEGIN,
+    end: str = GENERATED_END,
+) -> None:
+    """Replace the block between ``begin`` and ``end`` markers, or append one if absent.
+
+    Args:
+        doc_path: Markdown file to update (created if missing).
+        generated: Full replacement block, including both markers.
+        begin: Opening marker to search for.
+        end: Closing marker to search for (the first occurrence after ``begin``).
+    """
     text = doc_path.read_text(encoding="utf-8") if doc_path.is_file() else ""
-    start = text.find(GENERATED_BEGIN)
-    end = text.find(GENERATED_END)
-    if start != -1 and end != -1:
-        text = text[:start] + generated.rstrip("\n") + text[end + len(GENERATED_END) :]
+    start = text.find(begin)
+    stop = text.find(end, start + len(begin)) if start != -1 else -1
+    if start != -1 and stop != -1:
+        text = text[:start] + generated.rstrip("\n") + text[stop + len(end) :]
     else:
         text = text.rstrip("\n") + "\n\n" + generated
     doc_path.parent.mkdir(parents=True, exist_ok=True)
@@ -369,7 +381,8 @@ def run_inspect(cfg: FlowBenchConfig, docs_path: Path = DOCS_DATA_PATH) -> Path:
     manifest_path = cfg.data.manifest_path
     manifest_path.parent.mkdir(parents=True, exist_ok=True)
     manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
-    update_generated_section(docs_path, render_manifest_markdown(manifest))
+    if cfg.run.update_docs:
+        update_generated_section(docs_path, render_manifest_markdown(manifest))
     log.info(
         "manifest written",
         path=str(manifest_path),

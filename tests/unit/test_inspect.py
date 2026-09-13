@@ -78,3 +78,17 @@ def test_update_generated_section_appends_when_absent(tmp_path: Path) -> None:
     doc.write_text("# Title\n")
     update_generated_section(doc, f"{GENERATED_BEGIN}\nnew\n{GENERATED_END}\n")
     assert doc.read_text().count(GENERATED_BEGIN) == 1
+
+
+def test_update_generated_section_uses_custom_markers(tmp_path: Path) -> None:
+    """Two generated blocks with different opening markers can share the same END marker."""
+    begin_a, begin_b = "<!-- BEGIN A -->", "<!-- BEGIN B -->"
+    doc = tmp_path / "doc.md"
+    doc.write_text(
+        f"# T\n\n{begin_a}\nold-a\n{GENERATED_END}\n\nmiddle\n\n{begin_b}\nold-b\n{GENERATED_END}\n"
+    )
+    update_generated_section(doc, f"{begin_b}\nnew-b\n{GENERATED_END}\n", begin_b, GENERATED_END)
+    text = doc.read_text()
+    assert "old-a" in text and "old-b" not in text and "new-b" in text
+    assert text.count(GENERATED_END) == 2
+    assert text.index("middle") < text.index("new-b")
