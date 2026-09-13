@@ -144,6 +144,10 @@ the list of design decisions with rejected alternatives:
   requested. MPS kernels are not guaranteed bit-reproducible across runs, so two
   trainings on `mps` can differ in the last digits; this is recorded in the manifest
   rather than hidden.
+- **Fresh-clone check** (2026-09-13): cloning the repository, running `uv sync --frozen`
+  and the four quickstart commands reproduced every accuracy figure in the table above
+  to four significant figures and produced identical data hashes; only the latency
+  columns and timestamps differed.
 
 ## Testing and CI
 
