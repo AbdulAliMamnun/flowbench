@@ -1,6 +1,6 @@
 # FlowBench
 
-[![CI](https://github.com/aamamnun/flowbench/actions/workflows/ci.yml/badge.svg)](https://github.com/aamamnun/flowbench/actions/workflows/ci.yml)
+[![CI](https://github.com/AbdulAliMamnun/flowbench/actions/workflows/ci.yml/badge.svg)](https://github.com/AbdulAliMamnun/flowbench/actions/workflows/ci.yml)
 [![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](pyproject.toml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Ruff](https://img.shields.io/badge/lint-ruff-261230.svg)](pyproject.toml)

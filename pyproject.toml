@@ -31,8 +31,8 @@ dependencies = [
 ]
 
 [project.urls]
-Repository = "https://github.com/aamamnun/flowbench"
-Changelog = "https://github.com/aamamnun/flowbench/blob/main/CHANGELOG.md"
+Repository = "https://github.com/AbdulAliMamnun/flowbench"
+Changelog = "https://github.com/AbdulAliMamnun/flowbench/blob/main/CHANGELOG.md"
 
 [project.scripts]
 flowbench = "flowbench.cli:app"
