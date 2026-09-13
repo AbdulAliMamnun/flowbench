@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `flowbench export-demo` writes a self-contained `demo/` bundle (CNN and persistence
+  checkpoints, a seeded subset of 100 held-out test pairs, hash manifest, under 2 MB).
+- The Streamlit viewer falls back to `demo/` with a banner when `data/` and `artifacts/`
+  are absent; `requirements.txt` and `docs/deploy.md` for Streamlit Community Cloud.
+
 ### Known issues
 
 - The Zenodo archive stores the Navier–Stokes fields at 128×128 and 1024×1024 only.

@@ -31,11 +31,12 @@ Rules enforced by structure:
 - `serving/predictor.py` imports neither FastAPI nor Streamlit. Evaluation times this
   exact object so the reported latency is the served path.
 - No `print` in library code; the loader's own progress prints are captured.
-- `ui/launch.py` and `ui/panels.py` are the two additions to the prescribed layout:
-  `ui/app.py` is executed by `streamlit run` and must not be imported by the CLI, so the
-  launcher lives apart from it, and the figure builders (2D matplotlib panels, Plotly 3D
-  surfaces, per-sample metrics) live in `panels.py` so they are unit-testable without
-  running the page.
+- `ui/launch.py`, `ui/panels.py` and `ui/demo.py` are the additions to the prescribed
+  layout: `ui/app.py` is executed by `streamlit run` and must not be imported by the CLI,
+  so the launcher lives apart from it; the figure builders (2D matplotlib panels, Plotly
+  3D surfaces, per-sample metrics) live in `panels.py` so they are unit-testable without
+  running the page; `demo.py` exports and loads the self-contained `demo/` bundle used by
+  the hosted viewer when `data/` and `artifacts/` are absent (see `docs/deploy.md`).
 
 ## Data flow
 

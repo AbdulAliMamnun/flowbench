@@ -122,5 +122,15 @@ def ui(config: ConfigOption = DEFAULT_CONFIG) -> None:
     run_ui(cfg, config_path=config)
 
 
+@app.command(name="export-demo")
+def export_demo(config: ConfigOption = DEFAULT_CONFIG) -> None:
+    """Write demo/ (checkpoints + seeded held-out subset) for a hosted, data-less viewer."""
+    from flowbench.ui.demo import run_export_demo
+
+    cfg = _load(config)
+    bundle_dir = run_export_demo(cfg)
+    typer.echo(f"demo bundle written to {bundle_dir}")
+
+
 if __name__ == "__main__":  # pragma: no cover
     app()

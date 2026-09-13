@@ -60,3 +60,9 @@ serving:
 ui:
   port: 8501
   n_preview_samples: 32
+
+demo:
+  dir: demo
+  n_samples: 100
+  seed: 0
+  max_bytes: 2000000

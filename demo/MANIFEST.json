@@ -1,0 +1,197 @@
+{
+  "created_at": "2026-09-13T06:12:14+00:00",
+  "flowbench_version": "0.1.0",
+  "source_checkpoint": {
+    "path": "artifacts/default/checkpoints/cnn",
+    "model_version": "cnn-0.1.0-77c1383c",
+    "git_sha": "77c1383c9e69005067e15fc358f1ec09640d4af8"
+  },
+  "data_hashes": {
+    "raw_train_128": "6c145749f40aa1f00c2088e662f6668e1ca98018353a0f27a814732278c1a964",
+    "raw_test_128": "a7e1ed8ebc050317b8ccb7ef35dfc488e835337fcdefc62f56e01596accccbe5",
+    "prepared_train_32": "b0db62ab58b7db7e6a09e17a1253b52d06d767d345e052075c7fcac1fea13a53",
+    "prepared_test_32": "db5e5fc4cc63014e008d0dab27fe1c9f029bf1c79598686fa8b8c504a6e65ef2"
+  },
+  "subset": {
+    "seed": 0,
+    "n_samples": 100,
+    "n_available": 2000,
+    "instance_ids": [
+      5,
+      10,
+      16,
+      31,
+      42,
+      54,
+      64,
+      78,
+      96,
+      143,
+      144,
+      155,
+      167,
+      172,
+      241,
+      265,
+      334,
+      339,
+      452,
+      501,
+      504,
+      513,
+      526,
+      532,
+      580,
+      586,
+      611,
+      638,
+      653,
+      671,
+      708,
+      739,
+      742,
+      748,
+      753,
+      758,
+      763,
+      779,
+      782,
+      820,
+      834,
+      900,
+      932,
+      959,
+      963,
+      972,
+      1002,
+      1023,
+      1034,
+      1042,
+      1048,
+      1051,
+      1068,
+      1074,
+      1132,
+      1138,
+      1161,
+      1180,
+      1200,
+      1211,
+      1212,
+      1241,
+      1243,
+      1260,
+      1274,
+      1290,
+      1305,
+      1332,
+      1342,
+      1350,
+      1381,
+      1397,
+      1408,
+      1419,
+      1424,
+      1428,
+      1475,
+      1490,
+      1512,
+      1553,
+      1568,
+      1573,
+      1617,
+      1634,
+      1647,
+      1651,
+      1664,
+      1665,
+      1669,
+      1719,
+      1745,
+      1757,
+      1773,
+      1795,
+      1847,
+      1858,
+      1861,
+      1918,
+      1948,
+      1974
+    ],
+    "resolution": 32
+  },
+  "high_vorticity_slice": {
+    "quantile": 0.9,
+    "threshold": 2.406118679046631,
+    "n_reference_fields": 10000,
+    "derived_from": "max|omega| of train+validation reference fields"
+  },
+  "files": {
+    "checkpoints/cnn/MANIFEST.json": {
+      "sha256": "ab997b3a5cdc40ee8c960ee96e8fcb6dabed215dd403d6a214d14fce01ea5e92",
+      "size_bytes": 683
+    },
+    "checkpoints/cnn/config.yaml": {
+      "sha256": "52446c193d291b347dc6f0df697381d5d718f1356b5e95afd66bfb82b3dbd7bc",
+      "size_bytes": 1055
+    },
+    "checkpoints/cnn/data_hashes.json": {
+      "sha256": "6e186f273008b52638635c4c6c35df36818e69754a0043f732efb7250b344935",
+      "size_bytes": 357
+    },
+    "checkpoints/cnn/metrics.json": {
+      "sha256": "b5f6f50707198ff8c1a1bb390939344ee9e1476956b98ff4eced8a9a87a2839d",
+      "size_bytes": 7531
+    },
+    "checkpoints/cnn/model.pt": {
+      "sha256": "50d9146aedc74b53701caeb00c4cc939da6069fb3e00be18226e0d8dbe4eaf0d",
+      "size_bytes": 79409
+    },
+    "checkpoints/cnn/normalization.json": {
+      "sha256": "e8a9cf252ccab59c0e4624bb23feaf1c4bcbc162867cca8a69df6635cce50477",
+      "size_bytes": 111
+    },
+    "checkpoints/cnn/split_ids.json": {
+      "sha256": "7b8d15c90ed6b10dd360849c9b394b82715b7fd6faf4d879a3e821bb27438856",
+      "size_bytes": 217321
+    },
+    "checkpoints/persistence/MANIFEST.json": {
+      "sha256": "19e0a81f7ee1c75866bf31d21794fd89a0a1010e1a1b28cdd2785a2e52ab1edf",
+      "size_bytes": 687
+    },
+    "checkpoints/persistence/config.yaml": {
+      "sha256": "6f6bbaccb755fdad4009f815ff3cb7995af4c9a2ecc24f82c89875e863349bb6",
+      "size_bytes": 1149
+    },
+    "checkpoints/persistence/data_hashes.json": {
+      "sha256": "6e186f273008b52638635c4c6c35df36818e69754a0043f732efb7250b344935",
+      "size_bytes": 357
+    },
+    "checkpoints/persistence/metrics.json": {
+      "sha256": "428d9f5a5116bbb2ea7dac8958ff3ca185bc8d431512acdd41001e5551b8ad7b",
+      "size_bytes": 76
+    },
+    "checkpoints/persistence/model.pt": {
+      "sha256": "40d3ce9ff274b03a4ceec2df3f5ba02a55baf100cf1599fac63043bfe58fb4e0",
+      "size_bytes": 1249
+    },
+    "checkpoints/persistence/normalization.json": {
+      "sha256": "e8a9cf252ccab59c0e4624bb23feaf1c4bcbc162867cca8a69df6635cce50477",
+      "size_bytes": 111
+    },
+    "checkpoints/persistence/split_ids.json": {
+      "sha256": "7b8d15c90ed6b10dd360849c9b394b82715b7fd6faf4d879a3e821bb27438856",
+      "size_bytes": 217321
+    },
+    "metrics.json": {
+      "sha256": "cf68b3cf7b4fb0772e6d9413941eadb6a60733de6a67cceacc849d616129f430",
+      "size_bytes": 5268
+    },
+    "test_subset.pt": {
+      "sha256": "3a4b914dd04e4a09094fe60f0f620fe00a5884d476bc16d4856bc28949f57639",
+      "size_bytes": 822149
+    }
+  },
+  "total_bytes": 1354834,
+  "max_bytes": 2000000
+}

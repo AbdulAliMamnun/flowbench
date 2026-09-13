@@ -13,7 +13,7 @@ runner = CliRunner(env={"NO_COLOR": "1", "TERM": "dumb", "COLUMNS": "200"})
 
 _ANSI = re.compile(r"\x1b\[[0-9;?]*[A-Za-z]")
 
-SUBCOMMANDS = ["inspect", "prepare", "train", "evaluate", "serve", "ui"]
+SUBCOMMANDS = ["inspect", "prepare", "train", "evaluate", "serve", "ui", "export-demo"]
 
 
 def _plain(text: str) -> str:

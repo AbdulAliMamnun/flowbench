@@ -232,6 +232,17 @@ class UIConfig(_StrictModel):
     n_preview_samples: int = Field(default=200, ge=1)
 
 
+class DemoConfig(_StrictModel):
+    """Self-contained demo bundle for hosted, data-less deployments."""
+
+    dir: Path = Path("demo")
+    n_samples: int = Field(default=100, ge=1)
+    seed: int = Field(default=0, ge=0, description="Seed of the held-out subset selection.")
+    max_bytes: int = Field(
+        default=2_000_000, ge=1, description="Export fails if the bundle exceeds this size."
+    )
+
+
 class FlowBenchConfig(BaseSettings):
     """Top-level configuration; the single object passed through the pipeline."""
 
@@ -249,6 +260,7 @@ class FlowBenchConfig(BaseSettings):
     evaluation: EvaluationConfig = EvaluationConfig()
     serving: ServingConfig = ServingConfig()
     ui: UIConfig = UIConfig()
+    demo: DemoConfig = DemoConfig()
 
     @classmethod
     def settings_customise_sources(

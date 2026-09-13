@@ -50,6 +50,14 @@ MSE. Methodology, including how the slice threshold and the epsilon floor are ap
 is in [docs/benchmark.md](docs/benchmark.md). Error maps for the first test samples are
 written to `artifacts/default/report/error_map_*.png`.
 
+## Live demo
+
+Hosted viewer on Streamlit Community Cloud: **https://flowbench.streamlit.app** (placeholder
+until the app is deployed; steps in [docs/deploy.md](docs/deploy.md)). The hosted copy has
+no `data/` or `artifacts/`, so it runs on the committed `demo/` bundle: the trained
+checkpoint, the persistence baseline and a seeded subset of 100 held-out test pairs, with a
+banner saying so. Regenerate the bundle with `make export-demo` after retraining.
+
 ## Quickstart
 
 Requires [uv](https://docs.astral.sh/uv/) and about 4 GB of disk for the archive and

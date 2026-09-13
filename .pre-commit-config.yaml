@@ -6,7 +6,7 @@ repos:
       - id: trailing-whitespace
       - id: check-yaml
       - id: check-added-large-files
-        args: ["--maxkb=512"]
+        args: ["--maxkb=1024"]  # demo/test_subset.pt (100 float32 pairs) is ~820 KB
       - id: check-merge-conflict
 
   - repo: https://github.com/astral-sh/ruff-pre-commit

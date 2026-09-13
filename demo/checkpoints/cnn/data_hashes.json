@@ -1,0 +1,6 @@
+{
+  "raw_train_128": "6c145749f40aa1f00c2088e662f6668e1ca98018353a0f27a814732278c1a964",
+  "raw_test_128": "a7e1ed8ebc050317b8ccb7ef35dfc488e835337fcdefc62f56e01596accccbe5",
+  "prepared_train_32": "b0db62ab58b7db7e6a09e17a1253b52d06d767d345e052075c7fcac1fea13a53",
+  "prepared_test_32": "db5e5fc4cc63014e008d0dab27fe1c9f029bf1c79598686fa8b8c504a6e65ef2"
+}
