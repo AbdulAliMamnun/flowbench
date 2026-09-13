@@ -132,5 +132,15 @@ def export_demo(config: ConfigOption = DEFAULT_CONFIG) -> None:
     typer.echo(f"demo bundle written to {bundle_dir}")
 
 
+@app.command(name="export-site")
+def export_site(config: ConfigOption = DEFAULT_CONFIG) -> None:
+    """Write site/data/*.json and site/model/cnn.onnx for the static GitHub Pages portfolio."""
+    from flowbench.ui.site import run_export_site
+
+    cfg = _load(config)
+    site_dir = run_export_site(cfg)
+    typer.echo(f"site assets written to {site_dir}")
+
+
 if __name__ == "__main__":  # pragma: no cover
     app()

@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `flowbench export-demo` writes a self-contained `demo/` bundle (CNN and persistence
   checkpoints, a seeded subset of 100 held-out test pairs, hash manifest, under 2 MB).
+- `flowbench export-site` writes `site/data/{samples,benchmark,manifest}.json` (24 seeded
+  held-out replays with per-sample metrics, the full report, provenance and unknowns) and
+  `site/model/cnn.onnx` (opset 17, normalisation baked in); `site/index.html` is the static
+  GitHub Pages portfolio with heatmap, 3D surface and row-profile views and in-browser
+  ONNX Runtime inference; `.github/workflows/pages.yml` deploys it.
 - The Streamlit viewer falls back to `demo/` with a banner when `data/` and `artifacts/`
   are absent; `requirements.txt` and `docs/deploy.md` for Streamlit Community Cloud.
 

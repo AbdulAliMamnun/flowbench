@@ -243,6 +243,27 @@ class DemoConfig(_StrictModel):
     )
 
 
+class SiteConfig(_StrictModel):
+    """Static portfolio site export (GitHub Pages): replayed outputs plus an ONNX model."""
+
+    dir: Path = Path("site")
+    n_samples: int = Field(default=24, ge=1)
+    n_high_vorticity: int = Field(
+        default=4, ge=0, description="How many of n_samples come from the high-vorticity slice."
+    )
+    seed: int = Field(default=0, ge=0)
+    max_samples_bytes: int = Field(default=1_000_000, ge=1)
+    significant_digits: int = Field(default=5, ge=1, le=17)
+    onnx_opset: int = Field(default=17, ge=7)
+
+    @model_validator(mode="after")
+    def _slice_fits(self) -> SiteConfig:
+        if self.n_high_vorticity > self.n_samples:
+            msg = "n_high_vorticity cannot exceed n_samples"
+            raise ValueError(msg)
+        return self
+
+
 class FlowBenchConfig(BaseSettings):
     """Top-level configuration; the single object passed through the pipeline."""
 
@@ -261,6 +282,7 @@ class FlowBenchConfig(BaseSettings):
     serving: ServingConfig = ServingConfig()
     ui: UIConfig = UIConfig()
     demo: DemoConfig = DemoConfig()
+    site: SiteConfig = SiteConfig()
 
     @classmethod
     def settings_customise_sources(

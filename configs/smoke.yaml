@@ -66,3 +66,12 @@ demo:
   n_samples: 100
   seed: 0
   max_bytes: 2000000
+
+site:                     # `flowbench export-site`: static GitHub Pages portfolio
+  dir: site
+  n_samples: 24
+  n_high_vorticity: 4
+  seed: 0
+  max_samples_bytes: 1000000
+  significant_digits: 5
+  onnx_opset: 17

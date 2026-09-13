@@ -1,0 +1,86 @@
+{
+ "generated_at": "2026-09-13T19:19:27+00:00",
+ "flowbench_version": "0.1.0",
+ "torch_version": "2.14.0",
+ "git_sha": "f0f47cf97f3b4ac1a2eec5f5fbfe08b4e1e6a4d0",
+ "device": "mps",
+ "checkpoint": {
+  "path": "artifacts/default/checkpoints/cnn",
+  "model_version": "cnn-0.1.0-77c1383c",
+  "git_sha": "77c1383c9e69005067e15fc358f1ec09640d4af8",
+  "n_parameters": 19105,
+  "files_sha256": {
+   "MANIFEST.json": "ab997b3a5cdc40ee8c960ee96e8fcb6dabed215dd403d6a214d14fce01ea5e92",
+   "config.yaml": "52446c193d291b347dc6f0df697381d5d718f1356b5e95afd66bfb82b3dbd7bc",
+   "data_hashes.json": "6e186f273008b52638635c4c6c35df36818e69754a0043f732efb7250b344935",
+   "metrics.json": "b5f6f50707198ff8c1a1bb390939344ee9e1476956b98ff4eced8a9a87a2839d",
+   "model.pt": "50d9146aedc74b53701caeb00c4cc939da6069fb3e00be18226e0d8dbe4eaf0d",
+   "normalization.json": "e8a9cf252ccab59c0e4624bb23feaf1c4bcbc162867cca8a69df6635cce50477",
+   "split_ids.json": "7b8d15c90ed6b10dd360849c9b394b82715b7fd6faf4d879a3e821bb27438856"
+  }
+ },
+ "data_hashes": {
+  "raw_train_128": "6c145749f40aa1f00c2088e662f6668e1ca98018353a0f27a814732278c1a964",
+  "raw_test_128": "a7e1ed8ebc050317b8ccb7ef35dfc488e835337fcdefc62f56e01596accccbe5",
+  "prepared_train_32": "b0db62ab58b7db7e6a09e17a1253b52d06d767d345e052075c7fcac1fea13a53",
+  "prepared_test_32": "db5e5fc4cc63014e008d0dab27fe1c9f029bf1c79598686fa8b8c504a6e65ef2"
+ },
+ "onnx": {
+  "path": "model/cnn.onnx",
+  "opset": 17,
+  "sha256": "f630d9ec212ebc677ed3b1d1b2f6dc05ce2d8d2b6d48765b30329211349ba519",
+  "input": "field",
+  "output": "prediction",
+  "units": "field units in and out; normalisation baked in"
+ },
+ "samples": {
+  "path": "data/samples.json",
+  "sha256": "e723624e0897ef37c4f84b9870079c52e65066cab08e4d3b7c71145dbc5d2c43",
+  "size_bytes": 865586,
+  "seed": 0,
+  "instance_ids": [
+   4,
+   31,
+   340,
+   549,
+   618,
+   783,
+   994,
+   1073,
+   1095,
+   1099,
+   1106,
+   1198,
+   1256,
+   1265,
+   1287,
+   1339,
+   1447,
+   1602,
+   1618,
+   1708,
+   1717,
+   1811,
+   1862,
+   1930
+  ],
+  "n_high_vorticity": 4
+ },
+ "benchmark": {
+  "path": "data/benchmark.json",
+  "source": "artifacts/default/report/metrics.json"
+ },
+ "significant_digits": 5,
+ "unknowns": {
+  "prediction_horizon": "unknown: the archive and loader state that x and y are input/output pairs of the time evolution but give no time offset; the persistence error above is the only measured indication of how far apart they are",
+  "time_step_and_solver_dt": "unknown",
+  "physical_units": "unknown: vorticity values are recorded as stored, unitless",
+  "domain_size": "unknown",
+  "viscosity_and_forcing": "unknown: Zenodo states Reynolds number 500; viscosity and forcing term are not documented",
+  "boundary_conditions": "not documented by the archive or loader; empirical wrap-around check is consistent with periodic boundaries",
+  "solver": "unknown: Zenodo says 'a classical solver' at 1024x1024, unspecified",
+  "downsampling_1024_to_128": "unknown: how the archive's 128 grid was produced",
+  "trajectory_grouping": "unknown: no consecutive-frame links, instances treated as independent",
+  "train_test_relationship": "unknown: whether the archive's test file comes from separate simulations"
+ }
+}

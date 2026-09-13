@@ -36,7 +36,9 @@ Rules enforced by structure:
   so the launcher lives apart from it; the figure builders (2D matplotlib panels, Plotly
   3D surfaces, per-sample metrics) live in `panels.py` so they are unit-testable without
   running the page; `demo.py` exports and loads the self-contained `demo/` bundle used by
-  the hosted viewer when `data/` and `artifacts/` are absent (see `docs/deploy.md`).
+  the hosted viewer when `data/` and `artifacts/` are absent (see `docs/deploy.md`);
+  `site.py` exports the static portfolio site's data (`site/data/*.json`) and the ONNX
+  model (`site/model/cnn.onnx`) consumed by the hand-written `site/index.html`.
 
 ## Data flow
 

@@ -1,0 +1,181 @@
+{
+ "generated_at": "2026-09-13T05:34:12+00:00",
+ "flowbench_version": "0.1.0",
+ "git_sha": "77c1383c9e69005067e15fc358f1ec09640d4af8",
+ "run": "default",
+ "device": "mps",
+ "checkpoint": {
+  "path": "artifacts/default/checkpoints/cnn",
+  "model_version": "cnn-0.1.0-77c1383c",
+  "n_parameters": 19105,
+  "best_epoch": 48,
+  "best_val_mse_normalized": 0.4303
+ },
+ "data_hashes": {
+  "raw_train_128": "6c145749f40aa1f00c2088e662f6668e1ca98018353a0f27a814732278c1a964",
+  "raw_test_128": "a7e1ed8ebc050317b8ccb7ef35dfc488e835337fcdefc62f56e01596accccbe5",
+  "prepared_train_32": "b0db62ab58b7db7e6a09e17a1253b52d06d767d345e052075c7fcac1fea13a53",
+  "prepared_test_32": "db5e5fc4cc63014e008d0dab27fe1c9f029bf1c79598686fa8b8c504a6e65ef2"
+ },
+ "test": {
+  "n_samples": 2000,
+  "n_available": 2000,
+  "resolution": 32
+ },
+ "relative_l2_epsilon": 1e-08,
+ "high_vorticity_slice": {
+  "quantile": 0.9,
+  "threshold": 2.4061,
+  "n_reference_fields": 10000,
+  "derived_from": "max|omega| of train+validation reference fields",
+  "n_test_samples": 204
+ },
+ "latency_protocol": {
+  "warmup_iterations": 20,
+  "timed_iterations": 200
+ },
+ "models": {
+  "persistence": {
+   "n_parameters": 0,
+   "all": {
+    "n_samples": 2000,
+    "relative_l2": {
+     "mean": 0.83588,
+     "median": 0.83511,
+     "worst": 0.87682,
+     "n": 2000
+    },
+    "relative_l2_floored_samples": 0,
+    "mae": {
+     "mean": 0.47106,
+     "median": 0.46592,
+     "worst": 0.72312,
+     "n": 2000
+    },
+    "enstrophy_relative_error": {
+     "mean": 0.95274,
+     "median": 0.95289,
+     "worst": 0.95586,
+     "n": 2000
+    },
+    "enstrophy_absolute_error": {
+     "mean": 0.2376,
+     "median": 0.22883,
+     "worst": 0.52079,
+     "n": 2000
+    },
+    "enstrophy_floored_samples": 0
+   },
+   "high_vorticity": {
+    "n_samples": 204,
+    "relative_l2": {
+     "mean": 0.8348,
+     "median": 0.8339,
+     "worst": 0.85955,
+     "n": 204
+    },
+    "relative_l2_floored_samples": 0,
+    "mae": {
+     "mean": 0.54107,
+     "median": 0.53594,
+     "worst": 0.71865,
+     "n": 204
+    },
+    "enstrophy_relative_error": {
+     "mean": 0.95293,
+     "median": 0.95297,
+     "worst": 0.95583,
+     "n": 204
+    },
+    "enstrophy_absolute_error": {
+     "mean": 0.32848,
+     "median": 0.31517,
+     "worst": 0.52079,
+     "n": 204
+    },
+    "enstrophy_floored_samples": 0
+   },
+   "latency_ms": {
+    "p50_ms": 0.39871,
+    "p95_ms": 0.64002,
+    "mean_ms": 0.45439,
+    "min_ms": 0.1925,
+    "max_ms": 2.0786,
+    "warmup_iterations": 20,
+    "timed_iterations": 200,
+    "device": "mps"
+   }
+  },
+  "cnn": {
+   "n_parameters": 19105,
+   "all": {
+    "n_samples": 2000,
+    "relative_l2": {
+     "mean": 0.4667,
+     "median": 0.46382,
+     "worst": 0.64775,
+     "n": 2000
+    },
+    "relative_l2_floored_samples": 0,
+    "mae": {
+     "mean": 0.257,
+     "median": 0.2525,
+     "worst": 0.42729,
+     "n": 2000
+    },
+    "enstrophy_relative_error": {
+     "mean": 0.22719,
+     "median": 0.22532,
+     "worst": 0.54252,
+     "n": 2000
+    },
+    "enstrophy_absolute_error": {
+     "mean": 0.052291,
+     "median": 0.051553,
+     "worst": 0.16552,
+     "n": 2000
+    },
+    "enstrophy_floored_samples": 0
+   },
+   "high_vorticity": {
+    "n_samples": 204,
+    "relative_l2": {
+     "mean": 0.46806,
+     "median": 0.46753,
+     "worst": 0.61999,
+     "n": 204
+    },
+    "relative_l2_floored_samples": 0,
+    "mae": {
+     "mean": 0.30269,
+     "median": 0.29802,
+     "worst": 0.41964,
+     "n": 204
+    },
+    "enstrophy_relative_error": {
+     "mean": 0.16968,
+     "median": 0.16819,
+     "worst": 0.44372,
+     "n": 204
+    },
+    "enstrophy_absolute_error": {
+     "mean": 0.054621,
+     "median": 0.052939,
+     "worst": 0.16552,
+     "n": 204
+    },
+    "enstrophy_floored_samples": 0
+   },
+   "latency_ms": {
+    "p50_ms": 0.57819,
+    "p95_ms": 0.72047,
+    "mean_ms": 0.59557,
+    "min_ms": 0.50079,
+    "max_ms": 0.88746,
+    "warmup_iterations": 20,
+    "timed_iterations": 200,
+    "device": "mps"
+   }
+  }
+ }
+}

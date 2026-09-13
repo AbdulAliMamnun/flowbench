@@ -52,6 +52,11 @@ written to `artifacts/default/report/error_map_*.png`.
 
 ## Live demo
 
+Static portfolio site on GitHub Pages: **https://abdulalimamnun.github.io/flowbench/**
+(vanilla HTML/JS, deployed by `.github/workflows/pages.yml` from `site/`). It replays 24 held-out
+samples exported by `flowbench export-site`, shows the full benchmark table, and can run the
+CNN in the browser through ONNX Runtime Web.
+
 Hosted viewer on Streamlit Community Cloud: **https://flowbench.streamlit.app** (placeholder
 until the app is deployed; steps in [docs/deploy.md](docs/deploy.md)). The hosted copy has
 no `data/` or `artifacts/`, so it runs on the committed `demo/` bundle: the trained
