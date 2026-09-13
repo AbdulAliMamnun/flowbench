@@ -1,0 +1,60 @@
+# FlowBench v0.1 — full run.
+# Every tunable lives here; library code reads config, never constants.
+
+run:
+  name: default
+  seed: 0
+  device: auto            # mps when available, otherwise cpu
+  artifacts_dir: artifacts
+  log_level: INFO
+  deterministic: true
+
+data:
+  root_dir: data
+  manifest_path: data/manifest.json
+  zenodo_record_id: "12825163"
+  source_resolution: 128  # Zenodo ships 128 and 1024 only; 32 is obtained by stride-4 subsampling
+  resolution: 32
+  n_train_available: 10000  # verified by `flowbench inspect`; see data/manifest.json
+  n_test_available: 2000
+  max_train_samples: null
+  max_test_samples: null
+  val_fraction: 0.1
+  split_seed: 0
+  num_workers: 0
+
+model:
+  name: cnn
+  cnn:
+    layers: 4
+    channels: 32
+    kernel_size: 3
+    padding_mode: zeros   # decision recorded in docs/data.md after inspection
+    residual: true
+
+training:
+  epochs: 50
+  batch_size: 64
+  learning_rate: 0.001
+  weight_decay: 0.0
+  early_stopping_patience: 10
+  log_every_n_steps: 50
+
+evaluation:
+  batch_size: 128
+  relative_l2_epsilon: 1.0e-8
+  high_vorticity_quantile: 0.9
+  n_error_maps: 4
+  latency:
+    warmup_iterations: 20
+    timed_iterations: 200
+  metrics_tolerance: 1.0e-5
+
+serving:
+  host: 127.0.0.1
+  port: 8000
+  checkpoint_dir: null    # defaults to artifacts/<run>/checkpoints/<model>
+
+ui:
+  port: 8501
+  n_preview_samples: 200

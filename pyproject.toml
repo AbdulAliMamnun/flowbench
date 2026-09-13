@@ -1,0 +1,145 @@
+[project]
+name = "flowbench"
+version = "0.1.0"
+description = "Reproducible scientific-ML pipeline that predicts a 2D fluid's future vorticity field."
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [{ name = "Abdul Ali Mamnun" }]
+requires-python = ">=3.12"
+keywords = ["navier-stokes", "scientific-ml", "pytorch", "benchmark"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering :: Physics",
+]
+dependencies = [
+  "torch>=2.14.0,<3",
+  "numpy>=2.5.3,<3",
+  "neuraloperator>=2.0.0,<3",
+  "fastapi>=0.141.1,<1",
+  "uvicorn>=0.52.4,<1",
+  "streamlit>=1.63.0,<2",
+  "typer>=0.27.2,<1",
+  "pydantic>=2.13.5,<3",
+  "pydantic-settings>=2.15.0,<3",
+  "pyyaml>=6.0.3,<7",
+  "matplotlib>=3.11.2,<4",
+]
+
+[project.urls]
+Repository = "https://github.com/aamamnun/flowbench"
+Changelog = "https://github.com/aamamnun/flowbench/blob/main/CHANGELOG.md"
+
+[project.scripts]
+flowbench = "flowbench.cli:app"
+
+[dependency-groups]
+dev = [
+  "pytest>=9.1.1,<10",
+  "pytest-cov>=7.1.0,<8",
+  "httpx>=0.28.1,<1",
+  "ruff>=0.16.7,<1",
+  "mypy>=2.3.1,<3",
+  "pre-commit>=4.6.2,<5",
+  "types-PyYAML>=6.0.12",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/flowbench"]
+
+# --------------------------------------------------------------------------- ruff
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+src = ["src", "tests"]
+extend-exclude = ["data", "artifacts"]
+
+[tool.ruff.lint]
+select = [
+  "E",    # pycodestyle errors
+  "W",    # pycodestyle warnings
+  "F",    # pyflakes
+  "I",    # isort
+  "N",    # pep8-naming
+  "D",    # pydocstyle (Google style, see below)
+  "UP",   # pyupgrade
+  "B",    # flake8-bugbear
+  "SIM",  # flake8-simplify
+  "C4",   # flake8-comprehensions
+  "T20",  # flake8-print: no print() in library code
+  "PTH",  # flake8-use-pathlib
+  "RUF",  # ruff-specific rules
+  "ANN",  # flake8-annotations: type hints everywhere
+  "TCH",  # flake8-type-checking
+  "ARG",  # unused arguments
+  "PL",   # pylint subset
+]
+ignore = [
+  "D100",    # module docstrings are not required on every file
+  "D104",    # package __init__ docstrings are not required
+  "D107",    # __init__ docstring: documented on the class
+  "PLR0913", # many-arguments: config-driven constructors legitimately take several
+  "PLR2004", # magic-value-comparison: tests and shape checks use literals
+  "RUF001",  # ambiguous unicode in strings: × and – are intentional in scientific text
+  "RUF002",  # ... in docstrings
+  "RUF003",  # ... in comments
+]
+
+[tool.ruff.lint.per-file-ignores]
+"src/flowbench/cli.py" = ["PLC0415"]  # subcommands import lazily so `--help` stays fast
+"tests/**" = ["D", "ANN", "PLR", "ARG", "T20"]
+"scripts/**" = ["T20", "D"]
+"src/flowbench/ui/app.py" = ["T20"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.isort]
+known-first-party = ["flowbench"]
+
+[tool.ruff.format]
+docstring-code-format = true
+
+# --------------------------------------------------------------------------- mypy
+[tool.mypy]
+python_version = "3.12"
+strict = true
+files = ["src"]
+warn_unreachable = true
+show_error_codes = true
+pretty = true
+plugins = ["pydantic.mypy"]
+
+[[tool.mypy.overrides]]
+# neuraloperator ships no type information; it is used for the dataset loader only.
+module = ["neuralop.*", "matplotlib.*", "streamlit.*"]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = ["flowbench.ui.app"]
+disallow_untyped_calls = false
+
+# --------------------------------------------------------------------------- pytest
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers --strict-config"
+xfail_strict = true
+filterwarnings = ["error::DeprecationWarning:flowbench.*"]
+markers = [
+  "slow: end-to-end tests that exercise the smoke config (deselect with '-m \"not slow\"')",
+]
+
+[tool.coverage.run]
+source = ["flowbench"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
