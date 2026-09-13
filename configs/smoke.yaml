@@ -30,7 +30,7 @@ model:
     layers: 4
     channels: 32
     kernel_size: 3
-    padding_mode: zeros
+    padding_mode: circular
     residual: true
 
 training:

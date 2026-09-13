@@ -1,0 +1,204 @@
+{
+  "generated_at": "2026-09-13T05:26:50+00:00",
+  "flowbench_version": "0.1.0",
+  "neuraloperator_version": "2.0.0",
+  "torch_version": "2.14.0",
+  "source": {
+    "zenodo_record_id": "12825163",
+    "archive": "nsforcing_128.tgz",
+    "loader": "neuralop.data.datasets.navier_stokes.NavierStokesDataset",
+    "loader_docstring": "NavierStokesDataset stores data generated according to the 2d\n    incompressible Navier-Stokes equations. Input and output are both\n    2d fields with one channel of data which describes the vorticity at each point.\n\n    Data source: https://zenodo.org/records/12825163\n\n    Parameters\n    ----------\n    root_dir : Union[Path, str]\n        root at which to download data files\n    n_train : int\n        number of train instances\n    n_tests : List[int]\n        number of test instances per test dataset\n    batch_size : int\n        batch size of training set\n    test_batch_sizes : List[int]\n        batch size of test sets\n    train_resolution : int\n        resolution of data for training set\n    test_resolutions : List[int], optional\n        resolution of data for testing sets, by default [16,32]\n    encode_input : bool, optional\n        whether to normalize inputs in provided DataProcessor,\n        by default False\n    encode_output : bool, optional\n        whether to normalize outputs in provided DataProcessor,\n        by default True\n    encoding : str, optional\n        parameter for input/output normalization. Whether\n        to normalize by channel (\"channel-wise\") or\n        by pixel (\"pixel-wise\"), default \"channel-wise\"\n    channel_dim : int, optional\n        dimension of saved tensors to index data channels, by default 1\n    subsampling_rate : int or List[int], optional\n        rate at which to subsample each input dimension, by default None\n    download : bool, optional\n        whether to download data if not present, by default True\n\n    Attributes\n    ----------\n    train_db: torch.utils.data.Dataset of training examples\n    test_db:  \"\"                       of test examples\n    data_processor: neuralop.data.transforms.DataProcessor to process data examples\n        optional, default is None",
+    "zenodo": {
+      "url": "https://zenodo.org/api/records/12825163",
+      "status": "fetched",
+      "title": "Navier-Stokes Dataset",
+      "description": "<p>This dataset contains input-output pairs of PyTorch tensors that represent the time evolution of a fluid which flows according to the 2-d incompressible Navier-Stokes equations with Reynolds number 500. The data was originally generated at 1024x1024 resolution by a classical solver. </p>",
+      "license": "cc-by-4.0",
+      "creators": [
+        "NeuralOperator Team"
+      ],
+      "publication_date": "2021",
+      "files": {
+        "nsforcing_128.tgz": {
+          "size_bytes": 1450200928,
+          "checksum": "md5:70a389207ac93935d5ff3d4289d43581"
+        },
+        "nsforcing_1024.tgz": {
+          "size_bytes": 15356480249,
+          "checksum": "md5:8b5c239a215e5e9ff0863fed2e8adcdf"
+        }
+      }
+    }
+  },
+  "grid": {
+    "source_resolution": 128,
+    "working_resolution": 32,
+    "subsampling": "stride 4 on both spatial axes (fields[:, :, ::4, ::4]) applied by flowbench.data.dataset.subsample after loading through NavierStokesDataset; the loader's own subsampling_rate strides only the first spatial axis for this channel-squeezed archive (neuraloperator 2.0.0), so it is not used; no anti-aliasing",
+    "available_resolutions_on_zenodo": [
+      128,
+      1024
+    ]
+  },
+  "files": {
+    "train": {
+      "path": "data/nsforcing_train_128.pt",
+      "size_bytes": 1310720935,
+      "sha256": "6c145749f40aa1f00c2088e662f6668e1ca98018353a0f27a814732278c1a964",
+      "keys": [
+        "x",
+        "y"
+      ],
+      "tensors": {
+        "x": {
+          "shape": [
+            10000,
+            128,
+            128
+          ],
+          "dtype": "float32",
+          "min": -0.7591160535812378,
+          "max": 0.817166268825531,
+          "mean": 1.0801875622451235e-10,
+          "std": 0.15386944017602816,
+          "nan_count": 0,
+          "inf_count": 0
+        },
+        "y": {
+          "shape": [
+            10000,
+            128,
+            128
+          ],
+          "dtype": "float32",
+          "min": -3.488971710205078,
+          "max": 3.927931547164917,
+          "mean": -3.473390214857319e-12,
+          "std": 0.7078738515424815,
+          "nan_count": 0,
+          "inf_count": 0
+        }
+      },
+      "non_tensor_entries": {}
+    },
+    "test": {
+      "path": "data/nsforcing_test_128.pt",
+      "size_bytes": 262144935,
+      "sha256": "a7e1ed8ebc050317b8ccb7ef35dfc488e835337fcdefc62f56e01596accccbe5",
+      "keys": [
+        "x",
+        "y"
+      ],
+      "tensors": {
+        "x": {
+          "shape": [
+            2000,
+            128,
+            128
+          ],
+          "dtype": "float32",
+          "min": -0.7623928189277649,
+          "max": 0.7503439784049988,
+          "mean": -4.5801616554508665e-10,
+          "std": 0.15355105989644305,
+          "nan_count": 0,
+          "inf_count": 0
+        },
+        "y": {
+          "shape": [
+            2000,
+            128,
+            128
+          ],
+          "dtype": "float32",
+          "min": -3.630594491958618,
+          "max": 3.6271305084228516,
+          "mean": -1.0561841609635359e-11,
+          "std": 0.706247971513972,
+          "nan_count": 0,
+          "inf_count": 0
+        }
+      },
+      "non_tensor_entries": {}
+    }
+  },
+  "instances": {
+    "train": 10000,
+    "test": 2000
+  },
+  "structure": {
+    "train": {
+      "method": "link instance i to i+1 when max|y[i]-x[i+1]| <= 1e-06",
+      "n_instances": 10000,
+      "n_links": 0,
+      "n_simulations": 10000,
+      "timesteps_per_simulation": "unknown",
+      "instances_with_y_equal_x": 0,
+      "min_successor_gap": 1.0906386375427246,
+      "target_to_input_std_ratio": 4.60048370054942
+    },
+    "test": {
+      "method": "link instance i to i+1 when max|y[i]-x[i+1]| <= 1e-06",
+      "n_instances": 2000,
+      "n_links": 0,
+      "n_simulations": 2000,
+      "timesteps_per_simulation": "unknown",
+      "instances_with_y_equal_x": 0,
+      "min_successor_gap": 1.2176824808120728,
+      "target_to_input_std_ratio": 4.5994340383601084
+    }
+  },
+  "persistence_relative_l2": {
+    "train": {
+      "mean": 0.8357278077892947,
+      "min": 0.8042313161507452,
+      "max": 0.8803329337127134
+    },
+    "test": {
+      "mean": 0.8358747907036602,
+      "min": 0.8063894451641849,
+      "max": 0.8768194815921772
+    }
+  },
+  "boundary_check": {
+    "train": {
+      "method": "mean |f[0,:]-f[-1,:]| vs mean |f[i+1,:]-f[i,:]| (and likewise along the second axis); ratio near 1 means the wrap-around edge is as smooth as the interior",
+      "n_fields": 1024,
+      "axis0_interior_jump": 0.02509485408610573,
+      "axis0_wrap_jump": 0.02489954916347386,
+      "axis0_ratio": 0.9922173318098707,
+      "axis1_interior_jump": 0.02527078705923046,
+      "axis1_wrap_jump": 0.024881079439909335,
+      "axis1_ratio": 0.9845787304365425,
+      "ratio_max": 1.5,
+      "verdict": "consistent with periodic boundaries"
+    },
+    "test": {
+      "method": "mean |f[0,:]-f[-1,:]| vs mean |f[i+1,:]-f[i,:]| (and likewise along the second axis); ratio near 1 means the wrap-around edge is as smooth as the interior",
+      "n_fields": 1024,
+      "axis0_interior_jump": 0.025112603231235178,
+      "axis0_wrap_jump": 0.02513132341992034,
+      "axis0_ratio": 1.0007454499445074,
+      "axis1_interior_jump": 0.025276825319656384,
+      "axis1_wrap_jump": 0.02533550286460188,
+      "axis1_ratio": 1.0023213969398233,
+      "ratio_max": 1.5,
+      "verdict": "consistent with periodic boundaries"
+    }
+  },
+  "unknowns": {
+    "prediction_horizon": "unknown: the archive and loader state that x and y are input/output pairs of the time evolution but give no time offset; the persistence error above is the only measured indication of how far apart they are",
+    "time_step_and_solver_dt": "unknown",
+    "physical_units": "unknown: vorticity values are recorded as stored, unitless",
+    "domain_size": "unknown",
+    "viscosity_and_forcing": "unknown: Zenodo states Reynolds number 500; viscosity and forcing term are not documented",
+    "boundary_conditions": "not documented by the archive or loader; empirical wrap-around check is consistent with periodic boundaries",
+    "solver": "unknown: Zenodo says 'a classical solver' at 1024x1024, unspecified",
+    "downsampling_1024_to_128": "unknown: how the archive's 128 grid was produced",
+    "trajectory_grouping": "unknown: no consecutive-frame links, instances treated as independent",
+    "train_test_relationship": "unknown: whether the archive's test file comes from separate simulations"
+  },
+  "decisions": {
+    "cnn_padding_mode": "circular",
+    "cnn_padding_reason": "wrap-around jumps match interior jumps on both axes in both files"
+  }
+}

@@ -77,11 +77,41 @@ class DataConfig(_StrictModel):
     val_fraction: float = Field(default=0.1, gt=0.0, lt=1.0)
     split_seed: int = Field(default=0, ge=0)
     num_workers: int = Field(default=0, ge=0)
+    trajectory_link_atol: float = Field(
+        default=1e-6,
+        ge=0.0,
+        description=(
+            "Absolute tolerance for detecting that output i equals input i+1, i.e. that "
+            "consecutive instances are frames of one simulation."
+        ),
+    )
+    periodicity_ratio_max: float = Field(
+        default=1.5,
+        gt=0.0,
+        description=(
+            "Inspection heuristic: a field is 'consistent with periodic boundaries' when the "
+            "mean jump across the wrap-around edge is below this multiple of the mean "
+            "interior jump."
+        ),
+    )
+    inspect_sample_size: int = Field(
+        default=512, ge=1, description="Instances used for the boundary-condition check."
+    )
 
     @property
     def subsampling_rate(self) -> int:
         """Stride used to reduce ``source_resolution`` to ``resolution``."""
         return self.source_resolution // self.resolution
+
+    @property
+    def prepared_dir(self) -> Path:
+        """Directory of the cached working-resolution tensors written by ``prepare``."""
+        return self.root_dir / "prepared"
+
+    @property
+    def normalization_path(self) -> Path:
+        """Location of the train-only normalisation statistics written by ``prepare``."""
+        return self.root_dir / "splits" / f"normalization_seed{self.split_seed}.json"
 
     @model_validator(mode="after")
     def _resolution_divides(self) -> DataConfig:

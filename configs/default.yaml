@@ -29,7 +29,7 @@ model:
     layers: 4
     channels: 32
     kernel_size: 3
-    padding_mode: zeros   # decision recorded in docs/data.md after inspection
+    padding_mode: circular  # inspection found wrap/interior jump ratio ~1.0; see docs/data.md
     residual: true
 
 training:
