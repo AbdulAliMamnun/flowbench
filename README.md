@@ -63,6 +63,10 @@ no `data/` or `artifacts/`, so it runs on the committed `demo/` bundle: the trai
 checkpoint, the persistence baseline and a seeded subset of 100 held-out test pairs, with a
 banner saying so. Regenerate the bundle with `make export-demo` after retraining.
 
+## Deployment
+
+The v0.1.0 CNN is packaged and released through [ModelLaunch](https://github.com/AbdulAliMamnun/modellaunch), a local blue/green release workflow with predeclared quality, latency and error gates. It passed the same gates as ModelLaunch's reference model (relative L2 0.466 against a 0.55 threshold) and served at ~97 req/s with p95 latency of 22 ms on two CPU replicas. The release records and a replay of the run are in the [ModelLaunch release console](https://abdulalimamnun.github.io/modellaunch/).
+
 ## Quickstart
 
 Requires [uv](https://docs.astral.sh/uv/) and about 4 GB of disk for the archive and
